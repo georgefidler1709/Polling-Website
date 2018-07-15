@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Create a survey</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    </head>
+    <body>
+		<div id="wrapper">
+            <div id="yourdiv">
+		        <h1>{{ survey.title }}</h1>
+                <h4>{{ "For {} {}".format(survey.course_id, survey.course_semester) }}</h4>
+	            <ul>
+                    {% for q,l in survey_questions %}
+                        <li>
+                            <h3>
+                                {{ q.title }}
+                                {% if q.mandatory %}
+                                    <span style="color: red;">*</span>
+                                {% endif %}
+                            </h3>
+                            {% if l.type == "choice" %}
+                                <ul>
+                                    {% for o in q.options %}
+                                        <li><span>{{ o.title }}</span></li>
+                                    {% endfor %}
+                                </ul>
+                            {% else %}
+                                <p>Text response</p>
+                            {% endif %}
+                            {% if not q.mandatory %}
+                                <input type="checkbox" id="{{ l.id }}"> Delete question
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+                <h5>New questions</h5>
+                <button class="main-button red" id="btn2" type="button" onclick="removeInput()">Remove question</button>
+                <div class="q-list">
+                    <ul id="question-container">
+
+                    </ul>
+                </div>
+                <h5>Optional Question Bank</h5>
+		        <div class="q-list">
+                    <ul>
+		            {% for q in questions %}
+                        {% if not q.mandatory %}
+		                <li>
+		                    <div class="question">
+		                        <span id="question-id" hidden>{{ q.id }}</span>
+		                        <p class="q-title">{{ q.title }}</p>
+		                        <ul>
+		                        {% for opt in q.options %}
+		                            <li>{{ opt.title }}</li>
+		                        {% endfor %}
+                                </ul>
+		                    </div>
+		                    <button type="button" onclick="addMe(this)">Add this question</button>
+		                </li>
+                        {% endif %}
+		            {% endfor %}
+		            </ul>
+		        </div>
+                <form method="POST" id="main-form">
+                    <button class="main-button green" type="button" id="submission" onclick="mySubmit()">Review complete</button>
+                </form>
+			</div>
+		</div>
+        <script src="{{ url_for('static', filename='jquery-3.2.1.min.js') }}" charset="utf-8"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='edit_survey.js') }}"></script>
+    </body>
+</html>

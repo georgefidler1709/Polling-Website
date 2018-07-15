@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Dashboard</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+	</head>
+	<body>
+        <div id="wrapper">
+            <div id="yourdiv">
+                <h1>Welcome to Survey Website</h1>
+
+                <p><a href="/create_survey">Create a survey</a></p>
+                <p><a href="/create_question">Create a question</a></p>
+				<p><a href="/question_list">View questions</a></p>
+
+				<ul>
+                    {% for r in requests %}
+                        <li>
+                            <p>"{{r.username}}" would like guest access to {{r.courses[0].course_id}} {{r.courses[0].course_semester}}: <a href="/approve/{{r.username}}">Approve</a></p>
+                        </li>
+                    {% endfor %}
+                </ul>
+
+                <ul>
+                    {% for survey in surveys %}
+                        <li>
+                            <h3>{{ survey.title }}</h3>
+                            <!-- <p><a href="#">Edit survey</a></p> -->
+                            <p><a href="/view_results/{{ survey.id }}/">View survey responses</a></p>
+                            <!-- <p><a href="#">Close survey</a></p> -->
+                        </li>
+                    {% endfor %}
+                </ul>
+				<br>
+				<p><a href="/logout">Logout</a></p>
+            </div>
+        </div>
+	</body>
+</html>

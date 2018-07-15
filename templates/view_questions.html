@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Dashboard</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+	</head>
+	<body>
+        <div id="wrapper">
+            <div id="yourdiv">
+                <h1>Current Available Questions</h1>
+				<form method="POST">
+					Mandatory Questions
+	                <ul>
+	                    {% for q in questions %}
+							{% if q.mandatory %}
+	                        <li>
+								<h3>{{ q.title }}</h3>
+								<ul>
+									{% for o in q.options %}
+										<li><span>{{ o.title }}</span></li>
+									{% endfor %}
+								</ul>
+								Delete: <input type="checkbox" name="{{ q.id }}">
+
+	                        </li>
+							{% endif %}
+	                    {% endfor %}
+	                </ul>
+					Optional Questions
+	                <ul>
+	                    {% for q in questions %}
+							{% if not q.mandatory %}
+	                        <li>
+								<h3>{{ q.title }}</h3>
+								<ul>
+									{% for o in q.options %}
+										<li><span>{{ o.title }}</span></li>
+									{% endfor %}
+								</ul>
+								Delete: <input type="checkbox" name="{{ q.id }}">
+	                        </li>
+							{% endif %}
+	                    {% endfor %}
+	                </ul>
+					<button>Submit</button>
+				</form>
+            </div>
+        </div>
+	</body>
+</html>

@@ -1,0 +1,71 @@
+#wrapper {
+    text-align: center;
+    min-width: 600px;
+}
+#yourdiv {
+    display: inline-block;
+    text-align: left;
+    border-left: 1px solid #eee;
+    border-right: 1px solid #eee;
+    padding: 0px 40px;
+    min-width: 600px;
+}
+body {
+    font-family: sans-serif;
+}
+input.wide {
+    max-width: 100%;
+    min-width: 500px;
+    margin: 2px;
+    height: 1.7em;
+}
+.flashes {
+    color: red;
+}
+.checkbox {
+    max-width: 20px;
+    min-width: 20px;
+    border: 1px solid black;
+}
+.q-list, .question {
+    margin: 5px;
+}
+button {
+    margin-bottom: 15px;
+}
+.q-title {
+    margin-bottom: 0px;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+button {
+    background-color: #3880ff;
+    border: 3px solid #3880ff;
+    color: white;
+    border-radius: 3px;
+    outline: none;
+}
+.main-button {
+    padding: 5px 10px;
+    font-size: 1.1em;
+}
+.red {
+    background-color: #ff4040;
+    border: 3px solid #ff4040;
+}
+.green {
+    background-color: #0b3;
+    border: 3px solid #0b3;
+}
+.text-in {
+    padding: 6px;
+    margin: 5px 0px;
+}
+table.results-table {
+    border-collapse: collapse;
+    width: 100%;
+}
+table.results-table, td.results-table, th.results-table {
+    padding: 4px;
+    border: 1px solid black;
+}

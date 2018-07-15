@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Dashboard</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+	</head>
+	<body>
+        <div id="wrapper">
+            <div id="yourdiv">
+                <h1>Welcome to Survey Website</h1>
+
+				<ul>
+                    {% for survey in review %}
+                        <li>
+                            <h3>{{ survey.title }}</h3>
+                            <p><a href="/edit_survey/{{survey.id}}">Review survey</a></p>
+                        </li>
+                    {% endfor %}
+                </ul>
+				<ul>
+                    {% for survey in view %}
+                        <li>
+                            <h3>{{ survey.title }}</h3>
+                            <p><a href="/view_results/{{survey.id}}">View results</a></p>
+                        </li>
+                    {% endfor %}
+                </ul>
+				<br>
+				<p><a href="/logout">Logout</a></p>
+            </div>
+        </div>
+	</body>
+</html>

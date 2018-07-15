@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Resgister Guest Account</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    </head>
+    <body>
+        <div id="wrapper">
+            <div id="yourdiv">
+                <h1>Register Guest Account</h1>
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                    {% for message in messages %}
+                      <h5 class="flashes">{{ message }}</h5>
+                    {% endfor %}
+                    {% endif %}
+                {% endwith %}
+                <form method="POST">
+                    Course offering:
+                    <select class="text-in" name="offering" id="offering">
+                    {% for off in offerings %}
+                        <option value="{{ off.id }} {{ off.semester }}">{{ off.id }} {{ off.semester }}</option>
+                    {% endfor %}
+                    </select>
+                    <table>
+                        <tr>
+                            <td>
+                                Username/zID:
+                            </td>
+                            <td>
+                                <input type="text" name="username"><br>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Password/zPass:
+                            </td>
+                            <td>
+                                <input type="password" name="password"><br>
+                            </td>
+                        </tr>
+
+                    </table>
+                    <button>Submit</button>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>

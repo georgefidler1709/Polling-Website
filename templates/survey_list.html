@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Survey List</title>
+	</head>
+	<body>
+		<h1>View all surveys</h1>
+		<ul>
+		{% for survey in surveys %}
+			<li><a href="/view_results/{{ survey.id }}/">{{ survey.title }}</a></li>
+		{% endfor %}
+		</ul>
+	</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Create a survey</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    </head>
+    <body>
+		<div id="wrapper">
+            <div id="yourdiv">
+		        <h1>Create a survey</h1>
+		        <form method="POST" id="main-form">
+		            Survey title:<br>
+		            <input class="text-in" type="text" id="title" value="" placeholder="Enter survey name"><br>
+		            Course offering:
+		            <select class="text-in" name="offering" id="offering">
+		            {% for off in offerings %}
+		                <option value="{{ off.id }} {{ off.semester }}">{{ off.id }} {{ off.semester }}</option>
+		            {% endfor %}
+		            </select>
+		            <p><span id="num-questions">0 questions</span></p>
+		            <button class="main-button red" id="btn2" type="button" onclick="removeInput()">Remove question</button>
+		            <ul id="question-container"></ul>
+		            <button class="main-button green" type="button" id="submission" onclick="mySubmit()">Submit</button>
+		        </form>
+		        <div class="q-list">
+                    Mandatory Questions
+		            <ul>
+		            {% for q in questions %}
+                        {% if q.mandatory %}
+		                <li>
+		                    <div class="question">
+		                        <span id="question-id" hidden>{{ q.id }}</span>
+		                        <p class="q-title">{{ q.title }}</p>
+		                        <ul>
+		                        {% for opt in q.options %}
+		                            <li>{{ opt.title }}</li>
+		                        {% endfor %}
+                                </ul>
+		                    </div>
+		                    <button type="button" onclick="addMe(this)">Add this question</button>
+		                </li>
+                        {% endif %}
+		            {% endfor %}
+		            </ul>
+                    Optional Questions
+                    <ul>
+		            {% for q in questions %}
+                        {% if not q.mandatory %}
+		                <li>
+		                    <div class="question">
+		                        <span id="question-id" hidden>{{ q.id }}</span>
+		                        <p class="q-title">{{ q.title }}</p>
+		                        <ul>
+		                        {% for opt in q.options %}
+		                            <li>{{ opt.title }}</li>
+		                        {% endfor %}
+                                </ul>
+		                    </div>
+		                    <button type="button" onclick="addMe(this)">Add this question</button>
+		                </li>
+                        {% endif %}
+		            {% endfor %}
+		            </ul>
+		        </div>
+			</div>
+		</div>
+        <script src="{{ url_for('static', filename='jquery-3.2.1.min.js') }}" charset="utf-8"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='create_survey.js') }}"></script>
+    </body>
+</html>

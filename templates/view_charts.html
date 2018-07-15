@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>View Survey Results</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    </head>
+    <body>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.min.js" charset="utf-8"></script>
+        <script type="text/javascript">
+            var COLORS = [];
+            for (var i = 5; i != 0; i = (i + 5) % 36) {
+                COLORS.push('hsl(' + i * 10 + ', 100%, 70%)');
+            }
+        </script>
+        <div id="wrapper">
+            <div id="yourdiv">
+                <h1>{{ survey.title }}</h1>
+                <ul>
+                    {% for q, l in data["questions"] %}
+                    <li>
+                        <h3>{{ q.title }}</h3>
+                        {% if l.type == "choice" %}
+                            <canvas id="{{ l.id }}" width="600" height="600"></canvas>
+                            <script type="text/javascript">
+                            t = function() {
+                                var canvas = document.getElementById("{{ l.id }}");
+                                var ctx = canvas.getContext("2d");
+                                var pieData = [
+                                    {% for o in q.options %}
+                                        {{ data["results"][l.id][o.id] }},
+                                    {% endfor %}
+                                ];
+                                var pieLabels = [
+                                    {% for o in q.options %}
+                                        "{{ o.title }}",
+                                    {% endfor %}
+                                ];
+                                var myPieChart = new Chart(ctx, {
+                                    type: 'pie',
+                                    data: {
+                                        datasets: [{
+                                            data: pieData,
+                                            backgroundColor: COLORS
+                                        }],
+                                        labels: pieLabels
+                                    },
+                                    options: {
+                                        segmentShowStroke: false,
+	                                    animateScale: true
+                                    }
+                                });
+                            }();
+                            </script>
+                            {% for o in q.options %}
+
+                            {% endfor %}
+                        {% else %}
+                        <table class="results-table">
+                            <thead>
+                                <tr>
+                                    <th class="results-table">Responses</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for r in data["results"][l.id] %}
+
+                                <tr>
+                                    <td class="results-table">{{ r }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        {% endif %}
+                    </li>
+                    {% endfor %}
+                </ul>
+			</div>
+		</div>
+    </body>
+</html>

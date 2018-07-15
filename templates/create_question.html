@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Create a question</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    </head>
+    <body>
+		<div id="wrapper">
+            <div id="yourdiv">
+		        <h1>Create a question</h1>
+		        <form method="POST" id="main-form">
+		            Question text:<br>
+		            <input class="wide" type="text" id="title" name="title" value="" placeholder="What is the question?">
+                    Mandatory:<input type="checkbox" id="mandatory" name="mandatory"><br>
+		            <button id="btn" type="button" onclick="addInput()">Add field</button>
+		            <button class="red" id="btn2" type="button" onclick="removeInput()">Remove field</button>
+		            <ul id="option-container"></ul>
+		            <button class="main-button green" type="button" onclick="mySubmit()">Submit</button>
+		        </form>
+			</div>
+		</div>
+        <script src="{{ url_for('static', filename='jquery-3.2.1.min.js') }}" charset="utf-8"></script>
+        <script src="{{ url_for('static', filename='create_question.js') }}" charset="utf-8"></script>
+    </body>
+</html>

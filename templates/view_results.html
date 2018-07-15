@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>View Survey Results</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    </head>
+    <body>
+        <div id="wrapper">
+            <div id="yourdiv">
+                <h1>{{ survey.title }}</h1>
+                <p><a href="/view_charts/{{survey.id}}">View charts</a></p>
+                <ul>
+                    {% for q, l in data["questions"] %}
+                    <li>
+                        <h3>{{ q.title }}</h3>
+                        <table class="results-table">
+                            {% if l.type == "choice" %}
+                            <thead>
+                                <tr>
+                                    <th class="results-table">Option</th>
+                                    <th class="results-table">Respondents</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for o in q.options %}
+                                <tr>
+                                    <td class="results-table">{{ o.title }}</td>
+                                    <td class="results-table">{{ data["results"][l.id][o.id] }}</td>
+                                </tr>
+                                {% endfor %}
+                                </tbody>
+                            {% else %}
+                            <thead>
+                                <tr>
+                                    <th class="results-table">Responses</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for r in data["results"][l.id] %}
+
+                                <tr>
+                                    <td class="results-table">{{ r }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                            {% endif %}
+                        </table>
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% if admin and survey.status != CLOSED %}
+                <form method="POST">
+                    <button>Close survey</button>
+                </form>
+                {% endif %}
+			</div>
+		</div>
+    </body>
+</html>
